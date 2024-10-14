@@ -17,21 +17,26 @@ DB_PASSWORD="<YOUR_PASSWORD>"
 Replace <YOUR_PASSWORD> with your actual PostgreSQL password in the script.
 
 # Create the database
-psql -U "$DB_USER" -c "CREATE DATABASE $DB_NAME;"
-
+psql -U "$DB_USER" -c 
+```
+"CREATE DATABASE $DB_NAME;"
+```
 # Create the items table
 psql -U "$DB_USER" -d "$DB_NAME" -c "
+```
 CREATE TABLE IF NOT EXISTS items (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );"
-
+```
 echo "Database and table created."
 
 # Step 3: Configure the connection string in main.go
+```
 CONN_STR="postgres://$DB_USER:$DB_PASSWORD@localhost/$DB_NAME?sslmode=disable"
 sed -i "s|connStr := .*|connStr := \"$CONN_STR\"|" main.go
 echo "Connection string configured in main.go."
+```
 
 # Step 4: Run the application
 echo "Starting the Go application..."
